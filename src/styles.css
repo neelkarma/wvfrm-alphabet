@@ -1,0 +1,18 @@
+:root {
+  --bg-color: #28282b;
+  --secondary-bg-color: #38383c;
+  --fg-color: #e0e0e0;
+
+  font-family: "JetBrains Mono", monospace;
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--fg-color);
+}
+
+a {
+  text-decoration: underline;
+  text-decoration-color: #808080;
+}
