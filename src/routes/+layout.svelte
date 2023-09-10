@@ -17,7 +17,6 @@
 <style>
   .center {
     display: grid;
-    width: 100vw;
     height: 100vh;
     place-items: center;
   }

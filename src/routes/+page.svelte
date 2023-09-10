@@ -109,6 +109,9 @@
     <Chart {times} {mistakes} />
     <Leaderboard {bestTime} />
     <a href="https://www.youtube.com/@Waveform">Follow the Waveform podcast!</a>
+    <p class="credits">
+      Made with &lt;3 by <a href="https://iamkneel.vercel.app/">iamkneel</a>
+    </p>
   {/if}
 </div>
 
@@ -121,5 +124,10 @@
 
   .timer {
     font-size: 1.5rem;
+  }
+
+  .credits {
+    font-size: 0.8rem;
+    color: #a0a0a0;
   }
 </style>
