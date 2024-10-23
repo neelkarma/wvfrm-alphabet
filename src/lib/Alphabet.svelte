@@ -1,30 +1,35 @@
 <script lang="ts">
-  export let currentLetterIndex: number;
+  interface Props {
+    currentLetterIndex: number;
+  }
 
-  let currentLetterEl: HTMLSpanElement;
+  let { currentLetterIndex }: Props = $props();
+
+  let currentLetterEl: HTMLSpanElement | undefined = $state();
 
   export const triggerIncorrect = () => {
-    currentLetterEl.animate(
+    currentLetterEl?.animate(
       [{ backgroundColor: "#ff3333", color: "#ffffff" }, {}],
       {
         duration: 500,
         easing: "cubic-bezier(0, 0, 0.2, 1)",
-      }
+      },
     );
   };
 
-  $: letters = Array.from(Array(26)).map((_, i) => {
-    let state: string;
+  let letters = $derived(
+    Array.from(Array(26)).map((_, i) => {
+      let state: string;
 
-    if (i > currentLetterIndex) state = "untyped";
-    else if (i < currentLetterIndex) state = "typed";
-    else state = "current";
+      if (i > currentLetterIndex) state = "untyped";
+      else if (i < currentLetterIndex) state = "typed";
+      else state = "current";
 
-    return [String.fromCharCode(i + 97), state];
-  });
+      return [String.fromCharCode(i + 97), state];
+    }),
+  );
 </script>
 
-<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="container">
   {#each letters as [letter, state] (letter)}
     {#if state === "current"}

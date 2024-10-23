@@ -1,12 +1,28 @@
 <script lang="ts">
-  import Chart from "chart.js/auto";
-  import { onMount } from "svelte";
+  import {
+    Chart,
+    BarController,
+    BarElement,
+    LinearScale,
+    CategoryScale,
+    ScatterController,
+    PointElement,
+    Legend,
+    Tooltip,
+  } from "chart.js";
 
-  export let times: number[];
-  export let mistakes: number[];
+  interface Props {
+    times: number[];
+    mistakes: number[];
+  }
 
-  let canvas: HTMLCanvasElement;
-  onMount(() => {
+  let { times, mistakes }: Props = $props();
+
+  let canvas: HTMLCanvasElement | undefined = $state();
+
+  $effect(() => {
+    if (!canvas) return;
+
     const data = [];
 
     for (let i = 0; i < 26; i++) {
@@ -17,10 +33,21 @@
       });
     }
 
-    Chart.defaults.backgroundColor = "#00000000";
-    Chart.defaults.borderColor = "#303030";
-    Chart.defaults.color = "#c0c0c0";
+    Chart.register(
+      BarController,
+      BarElement,
+      CategoryScale,
+      LinearScale,
+      ScatterController,
+      PointElement,
+      Legend,
+      Tooltip,
+    );
+
+    Chart.defaults.color = "#abb2bf";
+    Chart.defaults.borderColor = "#3e3e40";
     Chart.defaults.font.family = "JetBrains Mono";
+
     new Chart(canvas, {
       type: "bar",
       data: {
@@ -32,6 +59,7 @@
             yAxisID: "time",
             order: 1,
             data: data.map((row) => row.time),
+            backgroundColor: "#61afef",
           },
           {
             type: "scatter",
@@ -41,6 +69,7 @@
             order: 0,
             data: data.map((row) => row.mistakes),
             borderWidth: 2,
+            borderColor: "#e06c75",
 
             // Hide points if there were no mistakes
             pointRadius: function (context): number {
@@ -95,4 +124,4 @@
   });
 </script>
 
-<canvas bind:this={canvas} style="width: 100%;" />
+<canvas bind:this={canvas} style="width: 100%;"></canvas>

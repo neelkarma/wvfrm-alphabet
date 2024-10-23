@@ -3,28 +3,27 @@
   import Chart from "$lib/Chart.svelte";
   import HiddenInput from "$lib/HiddenInput.svelte";
   import Leaderboard from "$lib/Leaderboard.svelte";
-  import { onMount } from "svelte";
   import type { KeyboardEventHandler } from "svelte/elements";
 
-  let input: HiddenInput;
-  let alphabet: Alphabet;
+  let input: HiddenInput = $state();
+  let alphabet: Alphabet = $state();
 
-  onMount(() => {
+  $effect(() => {
     input.focus();
   });
 
-  let state: "unstarted" | "running" | "ended" = "unstarted";
-  let currentLetterIndex = 0;
-  let times = Array(26).fill(0);
-  let mistakes = Array(26).fill(0);
+  let state: "unstarted" | "running" | "ended" = $state("unstarted");
+  let currentLetterIndex = $state(0);
+  let times = $state(Array(26).fill(0));
+  let mistakes = $state(Array(26).fill(0));
 
   let interval = -1;
-  let startTime = Date.now();
-  let bestTime = Infinity;
-  let timeElapsed = 0;
+  let startTime = 0;
+  let bestTime = $state(Infinity);
+  let timeElapsed = $state(0);
 
   const updateTime = () => {
-    timeElapsed = Date.now() - startTime;
+    timeElapsed = window.performance.now() - startTime;
   };
 
   const reset = () => {
@@ -38,7 +37,7 @@
 
   const start = () => {
     state = "running";
-    startTime = Date.now();
+    startTime = window.performance.now();
     interval = setInterval(updateTime);
   };
 
@@ -48,11 +47,10 @@
     clearInterval(interval);
   };
 
-  const handleInput = (e: CustomEvent<string>) => {
+  const handleInput = (typed: string) => {
     if (state === "ended") return;
     if (state === "unstarted") start();
 
-    const typed = e.detail;
     const currentLetter = String.fromCharCode(currentLetterIndex + 97);
 
     if (typed === currentLetter) {
@@ -76,11 +74,11 @@
   };
 </script>
 
-<svelte:window on:keydown={handleKeyDown} />
+<svelte:window onkeydown={handleKeyDown} />
 
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<div on:click={() => input.focus()}>
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div onclick={() => input.focus()}>
   <p>
     See how fast you can type the alphabet! Start typing to start, and press Tab
     or Enter to reset.
@@ -99,7 +97,7 @@
         bestTime / 1000
       ).toFixed(3)} sec{/if}
   </p>
-  <HiddenInput bind:this={input} on:input={handleInput} />
+  <HiddenInput bind:this={input} oninput={handleInput} />
   {#if state === "ended"}
     {@const totalMistakes = mistakes.reduce((a, b) => a + b, 0)}
     <p>

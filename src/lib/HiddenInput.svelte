@@ -1,20 +1,23 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
+  interface Props {
+    oninput: (char: string) => void;
+  }
 
-  let el: HTMLInputElement;
+  let { oninput }: Props = $props();
 
-  const dispatch = createEventDispatcher<{ input: string }>();
+  let el: HTMLInputElement | undefined = $state();
 
-  export const focus = () => el.focus();
-  export const blur = () => el.blur();
+  export const focus = () => el?.focus();
+  export const blur = () => el?.blur();
 
   const handleInput = () => {
-    dispatch("input", el.value.toLowerCase());
+    if (!el) return;
+    oninput(el.value.toLowerCase());
     el.value = "";
   };
 </script>
 
-<input on:input={handleInput} bind:this={el} />
+<input oninput={handleInput} bind:this={el} />
 
 <style>
   input {

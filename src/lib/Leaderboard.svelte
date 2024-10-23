@@ -1,116 +1,138 @@
 <script lang="ts">
-  export let bestTime: number;
+  interface Props {
+    bestTime: number;
+  }
 
-  $: leaderboard = [
-    {
-      name: "Tom Scott",
-      time: 3555,
-      url: "https://www.youtube.com/@TomScottGo",
-    },
-    {
-      name: "Cleo Abram",
-      time: 4266,
-      url: "https://www.youtube.com/@CleoAbram",
-    },
-    {
-      name: "Quinn (Snazzy Labs)",
-      time: 4432,
-      url: "https://www.youtube.com/@snazzy",
-    },
-    { name: "Marques", time: 4539, url: "https://www.youtube.com/@mkbhd" },
-    {
-      name: "Josh Wardle",
-      time: 4973,
-      url: "https://twitter.com/powerlanguish",
-    },
-    { name: "Jad Abumrad", time: 5176, url: "https://twitter.com/jadabumrad" },
-    { name: "Adam", time: 5205, url: "https://twitter.com/adamlukas17" },
-    { name: "Andrew", time: 5249, url: "https://twitter.com/AndyManganelli" },
-    {
-      name: "Doug Demuro",
-      time: 5900,
-      url: "https://www.youtube.com/@DougDeMuro",
-    },
-    {
-      name: "Dr. Mike",
-      time: 5970,
-      url: "https://www.youtube.com/@HealthyGamerGG",
-    },
-    {
-      name: "SoKrispyMedia",
-      time: 6259,
-      url: "https://www.youtube.com/@SoKrispyMedia",
-    },
-    { name: "Hayato", time: 6537, url: "https://twitter.com/hayatohuseman" },
-    {
-      name: "JerryRigEverything",
-      time: 6627,
-      url: "https://www.youtube.com/@JerryRigEverything",
-    },
-    {
-      name: "Mark Rober",
-      time: 6633,
-      url: "https://www.youtube.com/@MarkRober",
-    },
-    {
-      name: "Austin Evans",
-      time: 6676,
-      url: "https://www.youtube.com/@austinevans",
-    },
-    {
-      name: "Colin + Samir",
-      time: 6677,
-      url: "https://www.youtube.com/@ColinandSamir",
-    },
-    {
-      name: "Simone Giertz",
-      time: 7009,
-      url: "https://www.youtube.com/@simonegiertz",
-    },
-    {
-      name: "Hank Green",
-      time: 7200,
-      url: "https://www.youtube.com/@vlogbrothers",
-    },
-    {
-      name: "Vinh",
-      time: 7392,
-      url: "https://twitter.com/danggvinh?lang=zh-Hant",
-    },
-    { name: "Michael", time: 7569 },
-    { name: "David", time: 8364, url: "https://www.youtube.com/@DavidImel" },
-    { name: "Tim", time: 8530, url: "https://twitter.com/timmcmahonn?lang=en" },
-    { name: "Hasan", time: 8778, url: "https://www.youtube.com/@HasanMinhaj" },
-    {
-      name: "David Blaine",
-      time: 8821,
-      url: "https://www.youtube.com/@DavidBlaine",
-    },
-    { name: "Brandon", time: 9442 },
-    { name: "You", time: bestTime },
-  ].sort(({ time: a }, { time: b }) => a - b);
+  let { bestTime }: Props = $props();
+
+  let leaderboard = $derived(
+    [
+      {
+        name: "Tom Scott",
+        time: 3555,
+        url: "https://www.youtube.com/@TomScottGo",
+      },
+      {
+        name: "Cleo Abram",
+        time: 4266,
+        url: "https://www.youtube.com/@CleoAbram",
+      },
+      {
+        name: "Quinn (Snazzy Labs)",
+        time: 4432,
+        url: "https://www.youtube.com/@snazzy",
+      },
+      { name: "Marques", time: 4539, url: "https://www.youtube.com/@mkbhd" },
+      {
+        name: "Josh Wardle",
+        time: 4973,
+        url: "https://twitter.com/powerlanguish",
+      },
+      {
+        name: "Jad Abumrad",
+        time: 5176,
+        url: "https://twitter.com/jadabumrad",
+      },
+      { name: "Adam", time: 5205, url: "https://twitter.com/adamlukas17" },
+      { name: "Andrew", time: 5249, url: "https://twitter.com/AndyManganelli" },
+      {
+        name: "Doug Demuro",
+        time: 5900,
+        url: "https://www.youtube.com/@DougDeMuro",
+      },
+      {
+        name: "Dr. Mike",
+        time: 5970,
+        url: "https://www.youtube.com/@HealthyGamerGG",
+      },
+      {
+        name: "SoKrispyMedia",
+        time: 6259,
+        url: "https://www.youtube.com/@SoKrispyMedia",
+      },
+      { name: "Hayato", time: 6537, url: "https://twitter.com/hayatohuseman" },
+      {
+        name: "JerryRigEverything",
+        time: 6627,
+        url: "https://www.youtube.com/@JerryRigEverything",
+      },
+      {
+        name: "Mark Rober",
+        time: 6633,
+        url: "https://www.youtube.com/@MarkRober",
+      },
+      {
+        name: "Austin Evans",
+        time: 6676,
+        url: "https://www.youtube.com/@austinevans",
+      },
+      {
+        name: "Colin + Samir",
+        time: 6677,
+        url: "https://www.youtube.com/@ColinandSamir",
+      },
+      {
+        name: "Simone Giertz",
+        time: 7009,
+        url: "https://www.youtube.com/@simonegiertz",
+      },
+      {
+        name: "Hank Green",
+        time: 7200,
+        url: "https://www.youtube.com/@vlogbrothers",
+      },
+      {
+        name: "Vinh",
+        time: 7392,
+        url: "https://twitter.com/danggvinh?lang=zh-Hant",
+      },
+      { name: "Michael", time: 7569 },
+      { name: "David", time: 8364, url: "https://www.youtube.com/@DavidImel" },
+      {
+        name: "Tim",
+        time: 8530,
+        url: "https://twitter.com/timmcmahonn?lang=en",
+      },
+      {
+        name: "Hasan",
+        time: 8778,
+        url: "https://www.youtube.com/@HasanMinhaj",
+      },
+      {
+        name: "David Blaine",
+        time: 8821,
+        url: "https://www.youtube.com/@DavidBlaine",
+      },
+      { name: "Brandon", time: 9442 },
+      { name: "You", time: bestTime },
+    ].sort(({ time: a }, { time: b }) => a - b),
+  );
 </script>
 
 <p>Leaderboard:</p>
 <table>
-  <tr>
-    <th>#</th>
-    <th>Name</th>
-    <th>Time (sec)</th>
-  </tr>
-  {#each leaderboard as { name, time, url }, i (i)}
+  <thead>
     <tr>
-      <td>{i + 1}</td>
-      <td class:you={name === "You"}>
-        {#if url}
-          <a href={url}>{name}</a>
-        {:else}
-          {name}
-        {/if}
-      </td>
-      <td>{(time / 1000).toFixed(3)}</td>
+      <th>#</th>
+      <th>Name</th>
+      <th>Time (sec)</th>
     </tr>
-  {/each}
+  </thead>
+  <tbody>
+    {#each leaderboard as { name, time, url }, i (i)}
+      <tr>
+        <td>{i + 1}</td>
+        <td class:you={name === "You"}>
+          {#if url}
+            <a href={url}>{name}</a>
+          {:else}
+            {name}
+          {/if}
+        </td>
+        <td>{(time / 1000).toFixed(3)}</td>
+      </tr>
+    {/each}
+  </tbody>
 </table>
 
 <style>

@@ -2,6 +2,13 @@
   import "@fontsource/jetbrains-mono";
   import "tailwindcss/src/css/preflight.css";
   import "../styles.css";
+  import type { Snippet } from "svelte";
+
+  interface Props {
+    children: Snippet;
+  }
+
+  let { children }: Props = $props();
 </script>
 
 <svelte:head>
@@ -10,7 +17,7 @@
 
 <div class="center">
   <div class="container">
-    <slot />
+    {@render children()}
   </div>
 </div>
 
